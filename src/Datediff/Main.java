@@ -1,22 +1,25 @@
 package Datediff;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter date1: ");
-        String date1 = scanner.next();
-        System.out.println("Please enter date2: ");
-        String date2 = scanner.next();
-        int dateDiff;
-        dateDiff = getDateDiff(date1, date2, TimeUnit.DAYS);
-    }
-    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
-        long diffInDays = date2.getTime() - date1.getTime();
-        return timeUnit.convert(diffInDays, TimeUnit.DAYS);
+        Scanner in = new Scanner(System.in);
+        String textDate1 = in.next();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+        LocalDate parsedDate1 = LocalDate.parse(textDate1, DateTimeFormatter.BASIC_ISO_DATE);
+        LocalDate date1 = LocalDate.of(2015, Month.DECEMBER, 18);
+        LocalDate date2 = LocalDate.of(2016, Month.MARCH, 3);
+
+        Period p = Period.between(date1, date2);
+        long p2 = ChronoUnit.DAYS.between(date1, date2);
+        System.out.println(p2 + " days gone by.");
+        System.out.println(parsedDate1);
     }
 }
